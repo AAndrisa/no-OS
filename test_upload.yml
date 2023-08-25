@@ -1,0 +1,47 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+
+trigger:
+- master
+- next-stable
+- 20*
+
+variables:
+  isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isNextStable: $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
+  isRelease: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
+
+
+jobs:
+- job: Test_ceeling
+  pool:
+    vmImage: ubuntu-latest
+  steps:
+  - checkout: self
+    fetchDepth: 1
+    submodules: true
+    clean: true
+    persistCredentials: true
+  - script: |
+      echo $(isMaster)
+      echo $(isNextStable)
+      echo $(isRelease)
+- job: print
+  pool:
+    vmImage: ubuntu-latest
+  steps:
+  - script: |
+      echo Hi
+      echo final
+    displayName: 'test'
+  - script: |
+      echo Hi
+      echo final
+      echo $(isMaster)
+      echo $(isNextStable)
+    displayName: 'test2'
+    condition: or(variables.isMaster, variables.isNextStable)
+
