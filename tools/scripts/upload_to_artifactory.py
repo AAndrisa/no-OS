@@ -122,7 +122,7 @@ for FILE in LOCAL_PATHS_LIST:
    else:
         ART_PATH = UPLOAD_BASE_PATH + "/" + SERVER_PATH + "/" + FILE
    upload_cmd = "curl -H \"X-JFrog-Art-Api:" + API_TOKEN + "\" -X PUT \"" + ART_PATH + ";" + PROPS + "\" -T \"" + FILE + "\" >> upload_kernel_log.txt"
-   os.system(upload_cmd)
+   print(upload_cmd)
 
 ########## Upload properties on folders #########
 
@@ -134,7 +134,7 @@ else:
 i = 0
 while ( i < int(PROP_LEVEL)):
    set_folder_props_cmd = "curl -H \"X-JFrog-Art-Api:" + API_TOKEN + "\" -X PUT \"" + ART_PATH + "/;" + PROPS + "\" >> upload_kernel_log.txt"
-   os.system(set_folder_props_cmd)
+   print(set_folder_props_cmd)
    i = i + 1
    ART_PATH = os.path.split(ART_PATH)[0]
 
