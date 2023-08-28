@@ -15,8 +15,5 @@ steps:
 
   displayName: 'Run a one-line script'
 
-- task: PublishPipelineArtifact@1
-    inputs:
-      targetPath: '$(Build.Repository.LocalPath)/test.txt'
-      artifact: '$(ARTIFACT_NAME)_Xilinx'
-      publishLocation: 'pipeline'
+- publish: '$(Build.Repository.LocalPath)/test.txt'
+  artifact: 'Xilinx'
