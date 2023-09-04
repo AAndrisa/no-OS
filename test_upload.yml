@@ -3,6 +3,14 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
+    downloadBranch: 'master'
+  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/next-stable') }}:
+    downloadBranch: 'next-stable'
+
+  variabilaTest: 'valoare'
+
 trigger:
 - master
 
@@ -11,7 +19,8 @@ pool:
 
 steps:
 - script: |
-    echo Hello, world! >> test.txt
+    echo $(downloadBranch)
+    echo $(variabilaTest)
 
   displayName: 'Run a one-line script'
 
