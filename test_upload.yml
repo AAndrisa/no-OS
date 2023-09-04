@@ -4,12 +4,12 @@
 # https://aka.ms/yaml
 
 variables:
+    variabilaTest: 'valoare'
+
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
     downloadBranch: 'master'
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/next-stable') }}:
     downloadBranch: 'next-stable'
-
-  variabilaTest: 'valoare'
 
 trigger:
 - master
@@ -23,6 +23,3 @@ steps:
     echo $(variabilaTest)
 
   displayName: 'Run a one-line script'
-
-- publish: '$(Build.Repository.LocalPath)/test.txt'
-  artifact: 'Xilinx'
