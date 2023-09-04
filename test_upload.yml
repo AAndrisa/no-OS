@@ -14,6 +14,7 @@ variables:
 trigger:
 - master
 - next-stable
+- staging/*
 
 pool:
   vmImage: ubuntu-latest
