@@ -6,7 +6,7 @@
 variables:
   variabilaTest: 'valoare'
 
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/staging*') }}:
+  ${{ if eq($(Build.SourceBranch), 'refs/heads/staging*') }}:
     downloadBranch: 'refs/heads/master'
   ${{ else }}:
     downloadBranch: $(Build.SourceBranch)
