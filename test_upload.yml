@@ -6,10 +6,10 @@
 variables:
   variabilaTest: 'valoare'
 
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
-    downloadBranch: 'master'
-  ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/next-stable') }}:
-    downloadBranch: 'next-stable'
+  ${{ if neq(variables['Build.SourceBranch'], 'refs/heads/staging*') }}:
+    downloadBranch: $[ variables['Build.SourceBranch'] ]
+  ${{ else }}:
+    downloadBranch: 'refs/heads/master'
 
 trigger:
 - master
