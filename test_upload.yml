@@ -13,6 +13,7 @@ variables:
 
 trigger:
 - master
+- next-stable
 
 pool:
   vmImage: ubuntu-latest
