@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 
 variables:
-    variabilaTest: 'valoare'
+  variabilaTest: 'valoare'
 
   ${{ if eq(variables['Build.SourceBranch'], 'refs/heads/master') }}:
     downloadBranch: 'master'
