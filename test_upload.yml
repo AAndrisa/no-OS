@@ -18,8 +18,8 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      sudo apt install ruby-full
-      sudo gem install ceedling
+      apt install ruby-full
+      gem install ceedling
       pip install gcovr==4.1
       cd tests/drivers/imu/
       ceedling test:all
