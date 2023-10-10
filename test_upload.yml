@@ -18,8 +18,8 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      apt install ruby-full
-      gem install ceedling
+      sudo apt install ruby-full
+      sudo gem install ceedling
       pip install gcovr==4.1
       cd tests/drivers/imu/
       ceedling test:all
@@ -27,7 +27,7 @@ jobs:
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: 'JUnit'
-      testResultsFiles: 'tests/drivers/imu/build/artifacts/test/report_junit.xml'
+      testResultsFiles: 'tests/drivers/imu/build/artifacts/test/*.xml'
 - job: print
   pool:
     vmImage: ubuntu-latest
