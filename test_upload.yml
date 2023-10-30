@@ -1,14 +1,11 @@
 variables:
-  var1: $[eq(variables['Build.SourceBranch'], 'refs/heads/no-os_pr')]
-  var2: $[eq(variables['System.PullRequest.TargetBranchName'], 'no-os_pr')]
 
-  ${{ if or( eq(variables['Build.SourceBranch'], 'refs/heads/no-os_pr'), eq(variables['System.PullRequest.TargetBranchName'], 'no-os_pr')) }}:
-    downloadBranch: 'refs/heads/libiio-v0'
-  ${{ elseif or( eq(variables['Build.SourceBranch'], 'refs/heads/next_stable'), eq(variables['System.PullRequest.TargetBranchName'], 'next_stable')) }}:
-    downloadBranch: 'refs/heads/next_stable'
+  ${{ if or(eq(variables['Build.SourceBranchName'], 'no-os_pr'), eq(variables['Build.SourceBranch'], 'next_stable')) }}:
+    var5: $[variables['Build.SourceBranch']]
+  ${{ elseif eq(variables['Build.Reason'], 'PullRequest') }}:
+    var5: $[ format('refs/heads/{0}',replace(replace(variables['System.PullRequest.TargetBranch'], 'no-os_pr', 'no-os'), 'master', 'main')) ]
   ${{ else }}:
-    downloadBranch: 'refs/heads/main'
-
+    var5: 'refs/heads/main'
 
 trigger:
   branches:
@@ -38,10 +35,11 @@ jobs:
     persistCredentials: true
   - script: |
       echo $(downloadBranch)
-      echo $(Build.SourceBranch)
+      echo $(Build.SourceBranchName)
+      echo $(Build.Reason)
       echo $(System.PullRequest.TargetBranchName)
-      echo $(var1)
-      echo $(var2)
+      echo $(var5)
+      echo Salut
     displayName: 'Run a one-line script'
 
 - job: print
