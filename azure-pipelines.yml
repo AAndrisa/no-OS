@@ -1,3 +1,15 @@
+variables:
+  var1: $[eq(variables['Build.SourceBranch'], 'refs/heads/libad9166-iio-v0')]
+  var2: $[eq(variables['System.PullRequest.TargetBranchName'], 'libad9166-iio-v0')]
+
+  ${{ if or( eq(variables['Build.SourceBranch'], 'refs/heads/libad9166-iio-v0'), eq(variables['System.PullRequest.TargetBranchName'], 'libad9166-iio-v0')) }}:
+    downloadBranch: 'refs/heads/libiio-v0'
+  ${{ elseif or( eq(variables['Build.SourceBranch'], 'refs/heads/next_stable'), eq(variables['System.PullRequest.TargetBranchName'], 'next_stable')) }}:
+    downloadBranch: 'refs/heads/next_stable'
+  ${{ else }}:
+    downloadBranch: 'refs/heads/main'
+
+
 trigger:
 - main
 - master
