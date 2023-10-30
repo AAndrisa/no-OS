@@ -11,8 +11,20 @@ variables:
 
 
 trigger:
-- master
-- next-stable
+  branches:
+    include:
+    - main
+    - master
+    - next_stable
+    - no-os_pr
+
+pr:
+  branches:
+    include:
+    - main
+    - master
+    - next_stable
+    - no-os_pr
 
 jobs:
 - job: Test_ceeling
