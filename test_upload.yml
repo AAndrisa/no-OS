@@ -1,7 +1,11 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+variables:
+
+  ${{ if or(eq(variables['Build.SourceBranchName'], 'no-os_pr'), eq(variables['Build.SourceBranch'], 'next_stable')) }}:
+    var5: $[variables['Build.SourceBranch']]
+  ${{ elseif eq(variables['Build.Reason'], 'PullRequest') }}:
+    var5: $[ format('refs/heads/{0}',replace(replace(variables['System.PullRequest.TargetBranch'], 'no-os_pr', 'no-os'), 'master', 'main')) ]
+  ${{ else }}:
+    var5: 'refs/heads/main'
 
 trigger:
 - master
@@ -18,16 +22,13 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      sudo apt install ruby-full
-      sudo gem install ceedling
-      pip install gcovr==4.1
-      cd tests/drivers/imu/
-      ceedling test:all
+      echo $(downloadBranch)
+      echo $(Build.SourceBranchName)
+      echo $(Build.Reason)
+      echo $(System.PullRequest.TargetBranchName)
+      echo $(var5)
+      echo Salut
     displayName: 'Run a one-line script'
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'tests/drivers/imu/build/artifacts/test/*.xml'
 - job: print
   pool:
     vmImage: ubuntu-latest
