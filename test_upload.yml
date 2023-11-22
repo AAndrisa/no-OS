@@ -4,13 +4,16 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
-- next-stable
+- staging/kuiper2.0
+
+pr:
+- staging/kuiper2.0
 
 jobs:
-- job: Test_ceeling
+- job: Kuiper_default
   pool:
     vmImage: ubuntu-latest
+  timeoutInMinutes: 200
   steps:
   - checkout: self
     fetchDepth: 1
@@ -18,22 +21,50 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      sudo apt install ruby-full
-      sudo gem install ceedling
-      pip install gcovr==4.1
-      cd tests/drivers/imu/
-      ceedling test:all
-    displayName: 'Run a one-line script'
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'tests/drivers/imu/build/artifacts/test/*.xml'
-- job: print
-  pool:
-    vmImage: ubuntu-latest
-  steps:
-  - script: |
-      echo Hi
-      echo final
-    displayName: 'test'
-  
+      echo "build image"
+    displayName: 'Build image'
+
+# trigger:
+# - master
+# - next-stable
+# - 20*
+
+# variables:
+# - name: isMaster
+#   value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+# - name: isNextStable
+#   value:  $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
+# - name: isRelease
+#   value: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
+
+# - ${{ if eq(variables['Build.Reason'], 'PullRequest')}}:
+#   - name: branch
+#     value: $(System.PullRequest.TargetBranchName)
+# - ${{ else }}:
+#   - name: branch
+#     value: $(Build.SourceBranchName)
+
+# jobs:
+# - job: Test_ceeling
+#   pool:
+#     vmImage: ubuntu-latest
+#   steps:
+#   - checkout: self
+#     fetchDepth: 1
+#     submodules: true
+#     clean: true
+#     persistCredentials: true
+#   - script: |
+#       echo $(isMaster)
+#       echo $(isNextStable)
+#       echo $(isRelease)
+# - job: print
+#   pool:
+#     vmImage: ubuntu-latest
+#   steps:
+#   - script: |
+#       export BRANCH=$(branch)
+#       python test.py \
+#         dsf ssd
+
+#     displayName: 'test'
