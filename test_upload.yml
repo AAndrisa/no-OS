@@ -6,6 +6,16 @@
 trigger:
 - master
 - next-stable
+- 20*
+
+variables:
+- name: isMaster
+  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+- name: isNextStable
+  value:  $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
+- name: isRelease
+  value: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
+
 
 jobs:
 - job: Test_ceeling
@@ -18,16 +28,9 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      sudo apt install ruby-full
-      sudo gem install ceedling
-      pip install gcovr==4.1
-      cd tests/drivers/imu/
-      ceedling test:all
-    displayName: 'Run a one-line script'
-  - task: PublishTestResults@2
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: 'tests/drivers/imu/build/artifacts/test/*.xml'
+      echo $(isMaster)
+      echo $(isNextStable)
+      echo $(isRelease)
 - job: print
   pool:
     vmImage: ubuntu-latest
