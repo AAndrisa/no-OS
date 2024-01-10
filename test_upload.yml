@@ -11,10 +11,8 @@ trigger:
 
 variables:
   isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
-- name: isNextStable
-  value:  $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
-- name: isRelease
-  value: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
+  isNextStable: $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
+  isRelease: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
 
 
 jobs:
