@@ -3,6 +3,10 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  libiioPipelineId: 9
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  isNextStable: $[eq(variables['Build.SourceBranch'], 'refs/heads/x')]
 trigger:
 - master
 - next-stable
@@ -39,4 +43,11 @@ jobs:
       echo Hi
       echo final
     displayName: 'test'
-  
+  - script: |
+      echo Hi
+      echo final
+      echo $(isMain)
+      echo $(isNextStable)
+    displayName: 'test2'
+    condition: or(variables.isMain, variables.isNextStable)
+
