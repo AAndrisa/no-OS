@@ -10,8 +10,7 @@ trigger:
 - 20*
 
 variables:
-- name: isMaster
-  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
 - name: isNextStable
   value:  $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
 - name: isRelease
