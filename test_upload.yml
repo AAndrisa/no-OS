@@ -31,8 +31,8 @@ jobs:
       echo $(isRelease) >> test.txt
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Build.Repository.LocalPath)/text.txt'
-      publishLocation: 'pipeline'
+      targetPath: '$(Build.Repository.LocalPath)/test.txt'
+      artifactName: 'test'
 - job: print
   pool:
     vmImage: ubuntu-latest
