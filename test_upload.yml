@@ -26,9 +26,14 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      echo $(isMaster)
-      echo $(isNextStable)
-      echo $(isRelease)
+      echo $(isMaster) > test.txt
+      echo $(isNextStable) >> test.txt
+      echo $(isRelease) >> test.txt
+  - task: PublishPipelineArtifact@1
+    inputs:
+      targetPath: '$(Build.Repository.LocalPath)'
+      artifact: 'test.txt'
+      publishLocation: 'pipeline'
 - job: print
   pool:
     vmImage: ubuntu-latest
