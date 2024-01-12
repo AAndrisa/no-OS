@@ -31,8 +31,7 @@ jobs:
       echo $(isRelease) >> test.txt
   - task: PublishPipelineArtifact@1
     inputs:
-      targetPath: '$(Build.Repository.LocalPath)'
-      artifact: 'test.txt'
+      targetPath: '$(Build.Repository.LocalPath)/text.txt'
       publishLocation: 'pipeline'
 - job: print
   pool:
