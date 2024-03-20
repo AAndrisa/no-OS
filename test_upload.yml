@@ -24,6 +24,7 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
+      sudo apt install -y qemu-utils
       modprobe binfmt_misc
       ls -al /usr/bin/
     displayName: 'test1'
