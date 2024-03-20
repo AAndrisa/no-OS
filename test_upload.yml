@@ -25,7 +25,8 @@ jobs:
     persistCredentials: true
   - script: |
       modprobe binfmt_misc
-      ls -al /usr/bin/qemu*
+      ls -al /usr/bin/
+    displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
   pool:
