@@ -13,24 +13,8 @@ pr:
 - next-stable
 - 20*
 
-variables:
-- name: isMaster
-  value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
-- name: isNextStable
-  value:  $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
-- name: isRelease
-  value: $[contains(variables['Build.SourceBranch'], 'refs/heads/20')]
-
-- ${{ if eq(variables['Build.Reason'], 'PullRequest')}}:
-  - name: branch
-    value: $(System.PullRequest.TargetBranchName)
-- ${{ else }}:
-  - name: branch
-    value: $(Build.SourceBranchName)
-
 jobs:
 - job: Test_ceeling
-  condition: ne(variables['Build.Reason'], 'PullRequest')
   pool:
     vmImage: ubuntu-latest
   steps:
@@ -40,9 +24,8 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      echo $(isMaster)
-      echo $(isNextStable)
-      echo $(isRelease)
+      modprobe binfmt_misc
+      ls -al /usr/bin/qemu*
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
   pool:
