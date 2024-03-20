@@ -52,5 +52,5 @@ jobs:
       export BRANCH=$(branch)
       python test.py \
         dsf ssd
-
+      echo "test"
     displayName: 'test'
