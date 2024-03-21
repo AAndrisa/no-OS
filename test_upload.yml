@@ -29,11 +29,10 @@ jobs:
   - script: |
       set -e
       echo $(Build.SourceBranchName)
-      var=(variablila_"$(Build.SourceBranchName)")
+      var="\$(variablila_2022_R2)"
       echo $var
       echo ${!var}
       echo $(variablila_2022_R2)
-      echo $variablila_2022_R2
 
     displayName: 'test1'
 - job: print
