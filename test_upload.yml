@@ -30,7 +30,7 @@ jobs:
       set -e
       echo $(variablila_2022_R2)
       echo $VARIABLILA_2022_R2
-      var=VARIABLILA_"$Build.SourceBranchName)"
+      var=VARIABLILA_"$(Build.SourceBranchName)"
       echo $var
       echo ${!var}
     displayName: 'test1'
