@@ -13,6 +13,9 @@ pr:
 - next-stable
 - 20*
 
+variables:
+- group: test_group
+
 jobs:
 - job: Test_ceeling
   pool:
@@ -24,8 +27,8 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      modprobe binfmt_misc
-      ls -al /usr/bin/qemu*
+      var=variablila_$(Build.SourceBranchName)
+      echo ${!var}
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
   pool:
