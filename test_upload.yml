@@ -27,10 +27,14 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
+      set -e
       echo $(Build.SourceBranchName)
       var=variablila_"$(Build.SourceBranchName)"
       echo $var
       echo ${!var}
+      echo $(variablila_2022_R2)
+      echo $(variablila_"$(Build.SourceBranchName)")
+      echo $(${!var})
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
