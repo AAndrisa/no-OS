@@ -27,7 +27,9 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      var=variablila_$(Build.SourceBranchName)
+      echo $(Build.SourceBranchName)
+      var=variablila_"$(Build.SourceBranchName)""
+      echo $var
       echo ${!var}
     displayName: 'test1'
 - job: print
