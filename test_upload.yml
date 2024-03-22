@@ -33,6 +33,7 @@ jobs:
       var=VARIABLILA_"$(Build.SourceBranchName)"
       echo $var
       echo ${!var}
+      echo $(trigger)
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
