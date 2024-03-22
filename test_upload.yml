@@ -16,6 +16,13 @@ pr:
 variables:
 - group: test_group
 
+- ${{ if eq(variables['Build.Reason'], 'PullRequest')}}:
+  - name: branch
+    value: $[ upper( replace(variables[System.PullRequest.TargetBranchName], '_', '|')) ]
+- ${{ else }}:
+  - name: branch
+    value: $[ upper( replace(variables[Build.SourceBranchName], '_', '|')) ]
+
 jobs:
 - job: Test_ceeling
   pool:
@@ -33,7 +40,7 @@ jobs:
       var=VARIABLILA_"$(Build.SourceBranchName)"
       echo $var
       echo ${!var}
-      echo $(trigger)
+      echo $(branch)
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
