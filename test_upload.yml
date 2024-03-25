@@ -27,6 +27,8 @@ jobs:
       echo "tete"
       cd projects/ad9081
       make
+      exit_code=$?
+      echo "test2 si $exit_code"
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
