@@ -34,13 +34,11 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      set -e
-      echo $(variablila_2022_R2)
-      echo $VARIABLILA_2022_R2
-      var=VARIABLILA_"$(Build.SourceBranchName)"
-      echo $var
-      echo ${!var}
-      echo $(branch)
+    echo "tete"
+    cd projects/ad9081
+    make
+    exit_code=$?
+    echo "test2 si $exit_code"
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
