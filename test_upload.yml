@@ -24,6 +24,7 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
+      set -e
       echo "tete"
       cd projects/ad9081
       make
