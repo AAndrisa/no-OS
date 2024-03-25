@@ -13,16 +13,6 @@ pr:
 - next-stable
 - 20*
 
-variables:
-- group: test_group
-
-- ${{ if eq(variables['Build.Reason'], 'PullRequest')}}:
-  - name: branch
-    value: $[ upper( replace(variables[System.PullRequest.TargetBranchName], '_', '|')) ]
-- ${{ else }}:
-  - name: branch
-    value: $[ upper( replace(variables[Build.SourceBranchName], '_', '|')) ]
-
 jobs:
 - job: Test_ceeling
   pool:
@@ -34,11 +24,11 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-    echo "tete"
-    cd projects/ad9081
-    make
-    exit_code=$?
-    echo "test2 si $exit_code"
+      echo "tete"
+      cd projects/ad9081
+      make
+      exit_code=$?
+      echo "test2 si $exit_code"
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
@@ -46,8 +36,5 @@ jobs:
     vmImage: ubuntu-latest
   steps:
   - script: |
-      export BRANCH=$(branch)
-      python test.py \
-        dsf ssd
-
+      echo "tet"
     displayName: 'test'
