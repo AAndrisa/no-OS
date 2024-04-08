@@ -6,7 +6,6 @@
 
 trigger:
 - master
-- next-stable
 - 20*
 
 variables:
