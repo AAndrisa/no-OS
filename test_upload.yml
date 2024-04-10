@@ -32,6 +32,7 @@ jobs:
       make
       exit_code=$?
       echo "test2 si $exit_code"
+      echo $(isMain)
     condition: and(succeeded(), variables.isMain)
     displayName: 'test1'
 - job: print
