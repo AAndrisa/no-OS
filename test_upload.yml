@@ -3,6 +3,9 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  isMain: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+
 trigger:
 - master
 - next-stable
@@ -29,6 +32,7 @@ jobs:
       make
       exit_code=$?
       echo "test2 si $exit_code"
+    condition: and(succeeded(), variables.isMain)
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
