@@ -20,6 +20,8 @@ jobs:
 - job: Test_ceeling
   pool:
     vmImage: ubuntu-latest
+  container:
+      image: tfcollins/libiio_debian_bookworm-ci:latest
   steps:
   - checkout: self
     fetchDepth: 1
@@ -27,13 +29,8 @@ jobs:
     clean: true
     persistCredentials: true
   - script: |
-      echo "tete"
-      cd projects/ad9081
-      make
-      exit_code=$?
-      echo "test2 si $exit_code"
-      echo $(isMain)
-    condition: and(succeeded(), variables.isMain)
+      sphinx-build --version
+      lsb_release -a
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
