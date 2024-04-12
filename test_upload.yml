@@ -30,7 +30,7 @@ jobs:
     persistCredentials: true
   - script: |
       sphinx-build --version
-      lsb_release -a
+      cat /etc/*-release
     displayName: 'test1'
 - job: print
   condition: eq(variables['Build.Reason'], 'PullRequest')
