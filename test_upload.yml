@@ -8,6 +8,8 @@ trigger:
 - master
 - 20*
 
+
+
 variables:
   isMaster: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
   isNextStable: $[eq(variables['Build.SourceBranch'], 'refs/heads/next_stable')]
