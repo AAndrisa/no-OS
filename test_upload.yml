@@ -18,7 +18,7 @@ variables:
 jobs:
 - job: Test_ceeling
   pool:
-    vmImage: windows-2022
+    vmImage: ubuntu-latest
   steps:
   - checkout: self
     fetchDepth: 1
@@ -28,6 +28,13 @@ jobs:
   - script: |
       echo $(SECRET)
     displayName: 'test'
+
+  - script: |
+      python3 test.py
+    env:
+      SECRET: $(SECRET)
+    displayName: 'test2'
+  
 # - job: print
 #   pool:
 #     vmImage: ubuntu-latest
